@@ -1,0 +1,7 @@
+{
+
+  "itemGroup.teleportmod": "Tardis Teleport Staff",
+
+  "item.teleportmod.teleport_staff": "Teleport Staff",
+  "__comment__": "lang json loads important names"
+}

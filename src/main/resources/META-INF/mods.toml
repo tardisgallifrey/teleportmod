@@ -1,0 +1,35 @@
+#Tardis Teleport Staff Mod 0.0.0.4
+
+modLoader="javafml" #mandatory
+loaderVersion="[41,)" #mandatory
+license="MIT"
+
+[[mods]] #mandatory
+
+modId="teleportmod" #mandatory
+version="0.0.0.4" #mandatory
+displayName="Tardis Teleport Staff Mod" #mandatory
+logoFile="BlueBox.png" #optional
+credits="Mom and KD got me into this." #optional
+authors="Dave does not do pretty" #optional
+
+# The description text for the mod (multi line!) (#mandatory)
+description='''
+Here's hoping this works.
+'''
+
+[[dependencies.teleportmod]] #optional
+
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[41,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+
+# Here's another dependency
+[[dependencies.teleportmod]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19,1.20)"
+    ordering="NONE"
+    side="BOTH"
