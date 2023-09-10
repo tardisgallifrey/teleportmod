@@ -28,7 +28,8 @@ public class ItemInit {
     //This registers our TELEPORT_STAFF object to ITEMS
     public static final RegistryObject<Item> TELEPORT_STAFF = ITEMS.register("teleport_staff",
             () -> new TeleportStaff(new Item.Properties()
-                    .tab(ModCreativeTab.instance)));
+                    .tab(ModCreativeTab.instance)
+                    .durability(100)));
 
     //This creates a Creative Mode Tab for OIL
     public static class ModCreativeTab extends CreativeModeTab {

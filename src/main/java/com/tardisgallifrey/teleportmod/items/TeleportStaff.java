@@ -1,7 +1,9 @@
 package com.tardisgallifrey.teleportmod.items;
 
-//import com.mojang.math.Vector3d;
+
+import com.tardisgallifrey.teleportmod.util.KeyboardHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -10,11 +12,15 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class TeleportStaff extends Item {
 
@@ -22,6 +28,11 @@ public class TeleportStaff extends Item {
         super(properties);
     }//end constructor
 
+    //Because TeleportStaff extends Item,
+    //We Override the use() method.
+
+    //InteractionResultHolder is the return type
+    //ItemStack is the type of ResultHolder
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level world, @NotNull Player player, @NotNull InteractionHand hand){
         //This is the place or block a player is looking at,
@@ -53,6 +64,13 @@ public class TeleportStaff extends Item {
         //Removes fall damage from dropping back down
         player.fallDistance = 0F;
 
+        // reduce durability
+        ItemStack stack = player.getItemInHand(hand);
+        stack.setDamageValue(stack.getDamageValue() + 1);
+
+        // break if durability gets to 0
+        if (stack.getDamageValue() >= stack.getMaxDamage()) stack.setCount(0);
+
         //returns the player's new location, hand, etc. to the world?
         return super.use(world, player, hand);
     }//end InteractionResultHolder
@@ -60,7 +78,7 @@ public class TeleportStaff extends Item {
     //modified BlockHitResult that allows extra teleport distance
     protected static @NotNull BlockHitResult rayTrace(@NotNull Level world, @NotNull Player player, double range) {
         //Our alteration to the default formula
-        //double range = 15;
+        //is to use range param as multiplier
 
         //Default Hit result formula from Minecraft Vanilla Item (5 blocks)
         float f = player.getXRot();
@@ -90,4 +108,22 @@ public class TeleportStaff extends Item {
                 ClipContext.Fluid.NONE,
                 player));
     }//end rayTrace()
+
+    //Teleport Staff extends Item
+    //thus we Override the appendHoverText method
+    //to add our tooltip text
+    //
+    //We pass in the ItemStack, the World, the stack of
+    //tooltips (List), and tool flags.
+    @Override
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level worldIn, @NotNull List<Component> tooltip, @NotNull TooltipFlag flagIn) {
+
+        //Checks to see if user is holding down a shift
+        //key before showing tooltip
+        if (KeyboardHelper.isHoldingShift()){
+            tooltip.add(Component.literal("teleports you where you're looking"));
+        }
+
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    }
 }
