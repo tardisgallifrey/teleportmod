@@ -31,7 +31,7 @@ public class ItemInit {
                     .tab(ModCreativeTab.instance)
                     .durability(100)));
 
-    //This creates a Creative Mode Tab for OIL
+    //This creates a Creative Mode Tab for items
     public static class ModCreativeTab extends CreativeModeTab {
         private ModCreativeTab(int index, String label) {
             super(index, label);

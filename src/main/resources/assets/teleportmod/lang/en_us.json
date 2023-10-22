@@ -3,5 +3,8 @@
   "itemGroup.teleportmod": "Tardis Teleport Staff",
 
   "item.teleportmod.teleport_staff": "Teleport Staff",
+
+  "enchantment.teleportmod.distance": "Teleport Distance",
+
   "__comment__": "lang json loads important names"
 }

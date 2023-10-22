@@ -1,5 +1,6 @@
 package com.tardisgallifrey.teleportmod;
 
+import com.tardisgallifrey.teleportmod.Init.EnchantmentInit;
 import com.tardisgallifrey.teleportmod.Init.ItemInit;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -16,6 +17,8 @@ public class TeleportModMain {
 
         modEventBus.addListener(this::setup);
         ItemInit.ITEMS.register(modEventBus);
+
+        EnchantmentInit.ENCHANTMENTS.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
     }

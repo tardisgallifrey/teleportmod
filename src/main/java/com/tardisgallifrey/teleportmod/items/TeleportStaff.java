@@ -17,6 +17,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import com.tardisgallifrey.teleportmod.enchants.DistanceEnchantment;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -35,9 +36,13 @@ public class TeleportStaff extends Item {
     //ItemStack is the type of ResultHolder
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level world, @NotNull Player player, @NotNull InteractionHand hand){
+
+
+        double range = DistanceEnchantment.enchantValue();
+
         //This is the place or block a player is looking at,
         //plus a distance to move forward (not sure if it's in blocks)
-        BlockHitResult ray = rayTrace(world, player, 50.0d);
+        BlockHitResult ray = rayTrace(world, player, range);
 
 
         //translates the ray's result to a block position
@@ -125,5 +130,13 @@ public class TeleportStaff extends Item {
         }
 
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    }
+
+    //To allow enchanting
+    //Level returned should be base
+    //XP level to allow enchanting at I
+    @Override
+    public int getEnchantmentValue() {
+        return 8;
     }
 }
